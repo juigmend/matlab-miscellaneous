@@ -1,7 +1,7 @@
 # Matlab miscellaneous
 
 Miscellaneous <a href="http://mathworks.com">Matlab</a> code.
-(Might also work in <a href="https://www.gnu.org/software/octave/">Octave</a>)
+It might also work in <a href="https://www.gnu.org/software/octave/">Octave</a>.
 
 ## License
 All software of my authorship in this page is published under the <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GNU General Purpose License version 2.</a>
