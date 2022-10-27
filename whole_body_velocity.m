@@ -1,5 +1,5 @@
 % whole-body velocity
-% this should work, you can choose any if the two flavors:
+% this should work, you can choose any of the two flavors:
 
 d_filled = mcfillgaps(d);
 d_vel = mctimeder(d_filled);
