@@ -11,8 +11,18 @@ All software of my authorship in this page is published under the <a href="https
 <ul>
 
 <br>
-<li><a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/mcspread.m">mcspread</a> 
- Computes "a movement feature representing bodily extension and contraction". See <a href="https://psychologyandmusicconference.files.wordpress.com/2022/10/ab_pam-ie-belgrade-2022.pdf?force_download=true">Touizrar, Mendoza & Thompson (2022)</a> in <a href="https://psychologyandmusicconference.wordpress.com/proceedings/">Second International Conference Psychology and Music, Belgrade, Serbia</a>. <a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/contraction_expansion_comparison.m">Comparison with other measures</a>. <a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/postural_contraction_expansion.pdf">Technical report</a>. Example: <a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/whole_body_velocity.m"> speed of the whole body spread.</a></li>
+<li>
+<a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/mcspread.m">mcspread</a> 
+ Computes "a movement feature representing bodily extension and contraction". See <a href="https://psychologyandmusicconference.files.wordpress.com/2022/10/ab_pam-ie-belgrade-2022.pdf?force_download=true">Touizrar, Mendoza & Thompson (2022)</a> in <a href="https://psychologyandmusicconference.wordpress.com/proceedings/">Second International Conference Psychology and Music, Belgrade, Serbia</a>. 
+
+<ul> 
+<li><a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/contraction_expansion_comparison.m">Comparison with other measures</a>. </li>
+ 
+<li><a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/postural_contraction_expansion.pdf">Technical report</a>. </li>
+ 
+<li>Example: <a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/whole_body_velocity.m"> speed of the whole body spread.</a> </li>
+</ul>
+</li>
 
 <br>
 <li><a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/novelty_2D_DEMO.m">Novelty 2D Demonstration</a> 
