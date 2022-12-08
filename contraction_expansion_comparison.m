@@ -3,7 +3,7 @@
 %              COMPARISON OF MEASURES FOR CONTRACTION OR EXPANSION             % 
 %            OF THE HUMAN BODY FROM POINT-CLOUD MOTION-CAPTURE DATA            %
 %                                                                              %
-%                                 DECEMBER 2022                                %
+%                               8 DECEMBER 2022                                %
 %                                                                              %
 %                          Juan Ignacio Mendoza Garay                          %
 %                               doctoral student                               %
@@ -53,7 +53,7 @@ start_time = tic;
       info.project_path = ' '; % <--- folder where the project files are and to save figures
 
 % .............................................................................. 
-% Define markers and additional (dotted) lines:
+% Define markers and additional lines:
 
 i_skl = 0;
 
@@ -173,15 +173,31 @@ info.conn{i_skl} = ... % <-- markers' connections to make skeletons ( row 1 = st
 % .............................................................................. 
 % Define visualisation parameters:
 
-vis_param.figsize{1} = [1200,320];  % <--- figure size
-vis_param.figsize{2} = [600,320];   % <--- figure size
-vis_param.msize      = 8;           % <--- marker size
-vis_param.cwidth     = 2;           % <--- connector width
-vis_param.skcolor    = 'wkkkk';     % <--- skeleton colours: [background marker connection trace markernumber] ('kwwww') or RGB triplet (5x3)
-vis_param.brcolor    = [1,1,1]*0.5; % <--- bounding rectangle, centroid and dotted line colour as RGB triplet
-vis_param.brwidth    = 2;           % <--- bounding rectangle and dotted line width
-vis_param.plgrid     = [1,n_skl];   % <--- plot grid: rows, columns 
-vis_param.fontsize   = 20;          % <--- font size
+vis_param.figsize{1} = [1200,320];     % <--- figure size
+vis_param.figsize{2} = [600,320];      % <--- figure size
+vis_param.msize      = 8;              % <--- marker size
+vis_param.cwidth     = 2;              % <--- connector width
+vis_param.skcolor    = 'wkkkk';        % <--- skeleton colours: [background marker connection trace markernumber] ('kwwww') or RGB triplet (5x3)
+
+vis_param.brcolor    = [1,1,1]*0.5;    % <--- bounding rectangle colour as RGB triplet
+vis_param.brwidth    = 2;              % <--- bounding rectangle line width
+
+vis_param.centcolor  = [1,1,1]*0.5;    % <--- centroid colour as RGB triplet
+
+vis_param.addlcolor  = [1,1,1]*0.5;    % <--- additional line colour as RGB triplet
+vis_param.addlwidth  = 2;              % <--- additional line width
+vis_param.addlstyle  = ':';            % <--- additional line style
+
+vis_param.plgrid     = [1,n_skl];      % <--- plot grid: rows, columns 
+vis_param.fontsize   = 20;             % <--- font size
+
+% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+% Values used in Touizrar, Mendoza & Thompson (2022):
+
+vis_param.figsize{1} = [1200,320]/1.2; % <--- figure size
+vis_param.centcolor  = [0.1,0.1,1];    % <--- centroid colour as RGB triplet
+vis_param.addlcolor  = [1,0.1,0.1];    % <--- additional line colour as RGB triplet
+vis_param.addlwidth  = 3;              % <--- additional line width
 
 % ------------------------------------------------------------------------------
 if ~exist('paths_added','var')
@@ -276,7 +292,7 @@ for i_skl = 1:n_skl
     scores(i_score,i_skl) = this_sum;
 
     hold on
-    plot(this_centroid(1),this_centroid(2),'*','MarkerSize',20,'LineWidth',vis_param.brwidth,'Color',vis_param.brcolor)
+    plot(this_centroid(1),this_centroid(2),'*','MarkerSize',20,'LineWidth',vis_param.brwidth,'Color',vis_param.centcolor)
     
     
     % . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -293,7 +309,7 @@ for i_skl = 1:n_skl
     text(sp_h.XLabel.Position(1),sp_h.XLabel.Position(2),skl_lbls{i_skl},'FontSize',vis_param.fontsize)   
     
     % . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-    % plot additional (dotted) lines:
+    % plot additional lines:
     
     if ~isempty( info.addlines{i_skl} )
         
@@ -306,7 +322,7 @@ for i_skl = 1:n_skl
             X = info.addlines{i_skl}(ii_line,1);
             Y = info.addlines{i_skl}(ii_line,2);
             
-            line(X,Y,'LineStyle',':','LineWidth',vis_param.brwidth,'Color',vis_param.brcolor);
+            line(X,Y,'LineStyle',vis_param.addlstyle,'LineWidth',vis_param.addlwidth,'Color',vis_param.addlcolor);
         end
     end
 end
@@ -333,7 +349,7 @@ gray_gradient = rescale(1:n_skl,0.4,0.9);
 gray_gradient = flip(gray_gradient);
 cmap = repmat(gray_gradient',1,3);
 
-figh{2} = figure('Position',[0,vis_param.figsize{1}(2),vis_param.figsize{2}])
+figh{2} = figure('Position',[0,vis_param.figsize{1}(2),vis_param.figsize{2}]);
 handle_bar = bar(scores_rs);
 
 set(gca,'XTickLabel',xtixk_lbl_str,'FontSize',vis_param.fontsize,'YLim',[0.5,2])
