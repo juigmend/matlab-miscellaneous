@@ -3,7 +3,7 @@
 %              COMPARISON OF MEASURES FOR CONTRACTION OR EXPANSION             % 
 %            OF THE HUMAN BODY FROM POINT-CLOUD MOTION-CAPTURE DATA            %
 %                                                                              %
-%                               8 DECEMBER 2022                                %
+%                                3 JANUARY 2023                                %
 %                                                                              %
 %                          Juan Ignacio Mendoza Garay                          %
 %                               doctoral student                               %
@@ -32,6 +32,7 @@
 %       - sum of distances between markers
 %       - sum of distances between markers and centroid
 %       - bounding rectangle
+%       - convex hull
 
 % Instructions:
 %   Edit the values indicated with an arrow like this: <--- (length of the arrow may vary)
@@ -49,15 +50,16 @@ start_time = tic;
 % ------------------------------------------------------------------------------
 % Declare paths, filenames and variables:
 
-      info.toolbox_path = ' '; % <--- folder where the Mocap Toolbox is
-      info.project_path = ' '; % <--- folder where the project files are and to save figures
+      info.toolbox_path = ''; % <--- folder where the Mocap Toolbox is
+      info.project_path = ''; % <--- folder where the project files are and to save figures
 
 % .............................................................................. 
-% Define markers and additional lines:
+% Define markers:
 
 i_skl = 0;
 
 i_skl = i_skl + 1;
+info.label{i_skl}   = 'A'; 
 info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
                        -400,    0 ; %  1) left toe
                         400,    0 ; %  2) right toe
@@ -78,6 +80,7 @@ info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal
                        ];
 
 i_skl = i_skl + 1;
+info.label{i_skl}   = 'B';
 info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
                        -400,    0 ; %  1) left toe
                         400,    0 ; %  2) right toe
@@ -97,14 +100,8 @@ info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal
                           0, 1300   % 16) head
                        ];
 
-info.addlines{i_skl} = [... % <--- additional lines, rows: point; columns: dimensions (horizontal,vertical,index)
-                       -400,  870, 1 ; 
-                       -190,  870, 1 ;
-                        400,  870, 2 ; 
-                        190,  870, 2
-                       ];
-                   
 i_skl = i_skl + 1;
+info.label{i_skl}   = 'C';
 info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
                        -400,    0 ; %  1) left toe
                         400,    0 ; %  2) right toe
@@ -116,22 +113,37 @@ info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal
                         180,  630 ; %  8) right hip
                        -200, 1100 ; %  9) left shoulder
                         200, 1100 ; % 10) right shoulder
-                       -220, 1350 ; % 11) left elbow
-                        220, 1350 ; % 12) right elbow
-                       -160, 1600 ; % 13) left wrist
-                        160, 1600 ; % 14) right wrist
+                       -230, 1350 ; % 11) left elbow
+                        230, 1350 ; % 12) right elbow
+                       -250, 1600 ; % 13) left wrist
+                        250, 1600 ; % 14) right wrist
+                          0, 1100 ; % 15) neck base
+                       -160, 1220   % 16) head
+                       ];
+
+i_skl = i_skl + 1;
+info.label{i_skl}   = 'D';
+info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
+                       -400,    0 ; %  1) left toe
+                        400,    0 ; %  2) right toe
+                       -380,    0 ; %  3) left ankle
+                        380,    0 ; %  4) right ankle
+                       -300,  300 ; %  5) left knee
+                        300,  300 ; %  6) right knee
+                       -180,  630 ; %  7) left hip
+                        180,  630 ; %  8) right hip
+                       -200, 1100 ; %  9) left shoulder
+                        200, 1100 ; % 10) right shoulder
+                       -230, 1350 ; % 11) left elbow
+                        230, 1350 ; % 12) right elbow
+                       -250, 1600 ; % 13) left wrist
+                        250, 1600 ; % 14) right wrist
                           0, 1100 ; % 15) neck base
                           0, 1300   % 16) head
                        ];
                    
-info.addlines{i_skl} = [... % <--- additional lines, rows: point; columns: dimensions (horizontal,vertical,index)
-                          0, 1280, 1 ; 
-                       -160, 1600, 1 ;
-                          0, 1280, 2 ; 
-                        160, 1600, 2
-                       ];
-
 i_skl = i_skl + 1;
+info.label{i_skl}   = 'E';
 info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
                        -400,    0 ; %  1) left toe
                         400,    0 ; %  2) right toe
@@ -150,13 +162,70 @@ info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal
                           0, 1100 ; % 15) neck base
                           0, 1300   % 16) head
                        ];
+                   
+% i_skl = i_skl + 1;
+% info.label{i_skl}   = 'F';
+% info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
+%                         -30,    0 ; %  1) left toe
+%                         -30,    0 ; %  2) right toe
+%                           0,    0 ; %  3) left ankle
+%                           0,    0 ; %  4) right ankle
+%                           0,  300 ; %  5) left knee
+%                           0,  300 ; %  6) right knee
+%                           0,  630 ; %  7) left hip
+%                           0,  630 ; %  8) right hip
+%                           0, 1100 ; %  9) left shoulder
+%                           0, 1100 ; % 10) right shoulder
+%                           0,  850 ; % 11) left elbow
+%                           0,  850 ; % 12) right elbow
+%                           0,  600 ; % 13) left wrist
+%                           0,  600 ; % 14) right wrist
+%                           0, 1100 ; % 15) neck base
+%                           0, 1300   % 16) head
+%                        ];
+% 
+% i_skl = i_skl + 1;
+% info.label{i_skl}   = 'G';
+% info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
+%                         -30,    0 ; %  1) left toe
+%                         -30,    0 ; %  2) right toe
+%                           0,    0 ; %  3) left ankle
+%                           0,    0 ; %  4) right ankle
+%                           0,  300 ; %  5) left knee
+%                           0,  300 ; %  6) right knee
+%                           0,  630 ; %  7) left hip
+%                           0,  630 ; %  8) right hip
+%                           0, 1100 ; %  9) left shoulder
+%                           0, 1100 ; % 10) right shoulder
+%                           0,  850 ; % 11) left elbow
+%                           0,  850 ; % 12) right elbow
+%                           0,  600 ; % 13) left wrist
+%                           0,  600 ; % 14) right wrist
+%                           0, 1100 ; % 15) neck base
+%                        -160, 1220   % 16) head
+%                        ];
+% 
+% i_skl = i_skl + 1;
+% info.label{i_skl}   = 'H';
+% info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
+%                         -30,    0 ; %  1) left toe
+%                         -30,    0 ; %  2) right toe
+%                           0,    0 ; %  3) left ankle
+%                           0,    0 ; %  4) right ankle
+%                        -204,  220 ; %  5) left knee
+%                        -204,  224 ; %  6) right knee
+%                           0,  550 ; %  7) left hip
+%                           0,  550 ; %  8) right hip
+%                           0, 1020 ; %  9) left shoulder
+%                           0, 1020 ; % 10) right shoulder
+%                           0,  770 ; % 11) left elbow
+%                           0,  770 ; % 12) right elbow
+%                           0,  520 ; % 13) left wrist
+%                           0,  520 ; % 14) right wrist
+%                           0, 1020 ; % 15) neck base
+%                           0, 1220   % 16) head
+%                        ];
 
-info.addlines{i_skl} = [... % <--- additional lines, rows: point; columns: dimensions (horizontal,vertical,index)
-                      -1010, 1000, 1 ; 
-                       -190, 1000, 1 ;
-                       1010, 1000, 2 ; 
-                        190, 1000, 2 ;
-                       ];
 
 n_skl = length(info.markers);
 
@@ -173,31 +242,29 @@ info.conn{i_skl} = ... % <-- markers' connections to make skeletons ( row 1 = st
 % .............................................................................. 
 % Define visualisation parameters:
 
-vis_param.figsize{1} = [1200,320];     % <--- figure size
-vis_param.figsize{2} = [600,320];      % <--- figure size
+% vis_param.limits     = [];             % <--- limits for all figures (empty = automatic)
+vis_param.limits     = [-1010, 1010, 0, 1600];
+
+vis_param.figsize{1} = [1480,260];     % <--- figure size for skeletons
+% vis_param.figsize{1} = [888,260];     % <--- figure size for skeletons
+vis_param.figsize{2} = [700,260];      % <--- figure size for bar chart
 vis_param.msize      = 8;              % <--- marker size
 vis_param.cwidth     = 2;              % <--- connector width
 vis_param.skcolor    = 'wkkkk';        % <--- skeleton colours: [background marker connection trace markernumber] ('kwwww') or RGB triplet (5x3)
 
-vis_param.brcolor    = [1,1,1]*0.5;    % <--- bounding rectangle colour as RGB triplet
+vis_param.centcolor  = [1,1,1]*0.5;    % <--- centroid colour as RGB triplet (empty = don't display)
+% vis_param.centcolor  = [];
+
+vis_param.brcolor    = [1,1,1]*0.7;    % <--- bounding rectangle colour as RGB triplet (empty = don't display)
+% vis_param.brcolor    = [];
 vis_param.brwidth    = 2;              % <--- bounding rectangle line width
 
-vis_param.centcolor  = [1,1,1]*0.5;    % <--- centroid colour as RGB triplet
-
-vis_param.addlcolor  = [1,1,1]*0.5;    % <--- additional line colour as RGB triplet
-vis_param.addlwidth  = 2;              % <--- additional line width
-vis_param.addlstyle  = ':';            % <--- additional line style
+vis_param.chcolor    = [1,1,1]*0.5;    % <--- convex hull colour as RGB triplet (empty = don't display)
+% vis_param.chcolor    = [];
+vis_param.chwidth    = 1;              % <--- convex hull line width
 
 vis_param.plgrid     = [1,n_skl];      % <--- plot grid: rows, columns 
 vis_param.fontsize   = 20;             % <--- font size
-
-% . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-% Values used in Touizrar, Mendoza & Thompson (2022):
-
-vis_param.figsize{1} = [1200,320]/1.2; % <--- figure size
-vis_param.centcolor  = [0.1,0.1,1];    % <--- centroid colour as RGB triplet
-vis_param.addlcolor  = [1,0.1,0.1];    % <--- additional line colour as RGB triplet
-vis_param.addlwidth  = 3;              % <--- additional line width
 
 % ------------------------------------------------------------------------------
 if ~exist('paths_added','var')
@@ -217,7 +284,11 @@ ap.cwidth = vis_param.cwidth;
 ap.child = 1;
 ap.output = [];
 
-ap.limits = [0,0,0,0]; % min x, max x, min y, max y
+if isempty(vis_param.limits)
+    ap.limits = [0,0,0,0]; % min x, max x, min y, max y
+else
+    ap.limits = vis_param.limits;
+end
 all_limits{n_skl} = [];
 
 for i_skl = 1:n_skl
@@ -233,29 +304,43 @@ for i_skl = 1:n_skl
         end_col = (i_dim * 2);
         all_limits{i_skl}(end_col-1:end_col) = this_minmax;
         
-        for i_mm = [1,2] % min, max
-             
-            if (i_mm == 1) && ( this_minmax(i_mm) < ap.limits(i_limits) )
-                
-                ap.limits(i_limits) = this_minmax(i_mm);
-                
-            elseif (i_mm == 2) && ( this_minmax(i_mm) > ap.limits(i_limits) )
-                
-                ap.limits(i_limits) = this_minmax(i_mm);
-            end
+        if isempty(vis_param.limits)
             
-            i_limits = i_limits + 1;
+            for i_mm = [1,2] % min, max
+                
+                if (i_mm == 1) && ( this_minmax(i_mm) < ap.limits(i_limits) )
+                    
+                    ap.limits(i_limits) = this_minmax(i_mm);
+                    
+                elseif (i_mm == 2) && ( this_minmax(i_mm) > ap.limits(i_limits) )
+                    
+                    ap.limits(i_limits) = this_minmax(i_mm);
+                end
+                
+                i_limits = i_limits + 1;
+            end
         end
     end
 end
 
-scores = zeros(3,n_skl);
-the_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-skl_lbls{n_skl} = [];
+if isempty(vis_param.limits)
+
+    fprintf(['limits = [', repmat('%g, ', 1, numel(ap.limits)-1), '%g]\n'], ap.limits)
+end
+
+gray_gradient = rescale(1:n_skl,0.4,0.9);
+gray_gradient = flip(gray_gradient);
+cmap = repmat(gray_gradient',1,3);
+c_maps{n_skl} = []; % color maps for bar chart
+
+scores = zeros(4,n_skl);
+k_chull{n_skl} = [];
 
 figh{1} = figure('Position',[0,0,vis_param.figsize{1}]);
 
 for i_skl = 1:n_skl
+    
+    c_maps{i_skl} = cmap(i_skl,:);
     
     these_3D_markers = [ info.markers{i_skl}(:,1), zeros(size(info.markers{i_skl},1),1), info.markers{i_skl}(:,2) ];
     these_data = these_3D_markers';
@@ -290,45 +375,38 @@ for i_skl = 1:n_skl
         this_sum = this_sum + norm( [ this_centroid ; info.markers{i_skl}(i_mk,:) ] );
     end
     scores(i_score,i_skl) = this_sum;
-
-    hold on
-    plot(this_centroid(1),this_centroid(2),'*','MarkerSize',20,'LineWidth',vis_param.brwidth,'Color',vis_param.centcolor)
-    
+    if ~isempty(vis_param.centcolor)
+        hold on
+        plot(this_centroid(1),this_centroid(2),'*','MarkerSize',20,'LineWidth',vis_param.brwidth,'Color',vis_param.centcolor)
+    end
     
     % . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
     % bounding rectangle:
     i_score = i_score + 1;
     scores(i_score,i_skl) = ( abs(diff(all_limits{i_skl}(1:2))) ) * ( abs(diff(all_limits{i_skl}(3:4))) ); 
-        
-    X = all_limits{i_skl}([1,1,2,2,1]);
-    Y = all_limits{i_skl}([3,4,4,3,3]);
-    line(X,Y,'LineWidth',vis_param.brwidth,'Color',vis_param.brcolor);
-    
-    
-    skl_lbls{i_skl} = the_alphabet(i_skl);
-    text(sp_h.XLabel.Position(1),sp_h.XLabel.Position(2),skl_lbls{i_skl},'FontSize',vis_param.fontsize)   
+    if ~isempty(vis_param.brcolor)
+        hold on
+        X = all_limits{i_skl}([1,1,2,2,1]);
+        Y = all_limits{i_skl}([3,4,4,3,3]);
+        line(X,Y,'LineStyle','--','LineWidth',vis_param.brwidth,'Color',vis_param.brcolor);
+    end
     
     % . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-    % plot additional lines:
-    
-    if ~isempty( info.addlines{i_skl} )
-        
-        n_lines = max( info.addlines{i_skl}(:,3) );
-        
-        for i_line = 1:n_lines
-            
-            ii_line = info.addlines{i_skl}(:,3) == i_line;
-
-            X = info.addlines{i_skl}(ii_line,1);
-            Y = info.addlines{i_skl}(ii_line,2);
-            
-            line(X,Y,'LineStyle',vis_param.addlstyle,'LineWidth',vis_param.addlwidth,'Color',vis_param.addlcolor);
-        end
+    % convex hull:
+    i_score = i_score + 1;
+    [k_chull{i_skl},scores(i_score,i_skl)] = convhull(info.markers{i_skl}(:,1),info.markers{i_skl}(:,2));
+    if ~isempty(vis_param.chcolor)
+        hold on
+        plot(info.markers{i_skl}(k_chull{i_skl},1),info.markers{i_skl}(k_chull{i_skl},2),'LineWidth',vis_param.chwidth,'Color',vis_param.chcolor)
     end
+
+    % . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+    text(sp_h.XLabel.Position(1),sp_h.XLabel.Position(2),info.label{i_skl},'FontSize',vis_param.fontsize)
 end
 
-scores_rs = zeros(3,n_skl);
-for i_s = 1:3
+scores_rs = zeros(4,n_skl);
+for i_s = 1:4
     scores_rs(i_s,:) = rescale( scores(i_s,:)) + 1; % normalise it, don't criticise it
 end
 
@@ -336,26 +414,23 @@ end
 % Comparison table:
 
 comparison_table = array2table(round(scores_rs,2));
-comparison_table.Properties.VariableNames = skl_lbls;
-comparison_table.Properties.RowNames = {'sum all distances','sum dist. to cent.','bounding rectangle'};
+comparison_table.Properties.VariableNames = info.label;
+comparison_table.Properties.RowNames = {'sum all distances','sum dist. to cent.','bounding rectangle','convex hull'};
 
 disp(comparison_table)
 
 % . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 % Bar chart:
 
-xtixk_lbl_str = {'  sum all \newlinedistances','sum distances\newline   to centroid','bounding\newlinerectangle'};
-gray_gradient = rescale(1:n_skl,0.4,0.9);
-gray_gradient = flip(gray_gradient);
-cmap = repmat(gray_gradient',1,3);
+xtixk_lbl_str = {'  sum all \newlinedistances','sum distances\newline   to centroid','bounding\newlinerectangle','convex\newline   hull'};
 
-figh{2} = figure('Position',[0,vis_param.figsize{1}(2),vis_param.figsize{2}]);
+figh{2} = figure('Position',[0,vis_param.figsize{1}(2)*1.3,vis_param.figsize{2}]);
 handle_bar = bar(scores_rs);
 
 set(gca,'XTickLabel',xtixk_lbl_str,'FontSize',vis_param.fontsize,'YLim',[0.5,2])
-set( handle_bar , {'FaceColor'},{cmap(1,:),cmap(2,:),cmap(3,:),cmap(4,:)}.')
+set( handle_bar , {'FaceColor'},c_maps')
 
-legend(skl_lbls,'Location','bestoutside')
+legend(info.label,'Location','bestoutside')
 
 % . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 % Save figs:
