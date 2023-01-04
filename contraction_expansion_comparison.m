@@ -3,7 +3,7 @@
 %              COMPARISON OF MEASURES FOR CONTRACTION OR EXPANSION             % 
 %            OF THE HUMAN BODY FROM POINT-CLOUD MOTION-CAPTURE DATA            %
 %                                                                              %
-%                                3 JANUARY 2023                                %
+%                                4 JANUARY 2023                                %
 %                                                                              %
 %                          Juan Ignacio Mendoza Garay                          %
 %                               doctoral student                               %
@@ -44,7 +44,6 @@
 clc
 clear
 close all
-% restoredefaultpath
 start_time = tic;
 
 % ------------------------------------------------------------------------------
@@ -54,178 +53,144 @@ start_time = tic;
       info.project_path = ''; % <--- folder where the project files are and to save figures
 
 % .............................................................................. 
+% Quick settings:
+
+select_dataset = 1; % 1 = ABCDE; 2 = FGH
+      
+% .............................................................................. 
 % Define markers:
 
 i_skl = 0;
 
-i_skl = i_skl + 1;
-info.label{i_skl}   = 'A'; 
-info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
-                       -400,    0 ; %  1) left toe
-                        400,    0 ; %  2) right toe
-                       -380,    0 ; %  3) left ankle
-                        380,    0 ; %  4) right ankle
-                       -300,  300 ; %  5) left knee
-                        300,  300 ; %  6) right knee
-                       -180,  630 ; %  7) left hip
-                        180,  630 ; %  8) right hip
-                       -200, 1100 ; %  9) left shoulder
-                        200, 1100 ; % 10) right shoulder
-                       -220,  850 ; % 11) left elbow
-                        220,  850 ; % 12) right elbow
-                       -210,  600 ; % 13) left wrist
-                        210,  600 ; % 14) right wrist
-                          0, 1100 ; % 15) neck base
-                          0, 1300   % 16) head
-                       ];
+if select_dataset == 1
+    
+    i_skl = i_skl + 1;
+    info.label{i_skl}   = 'A'; 
+    info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
+                           -400,    0 ; %  1) left toe
+                            400,    0 ; %  2) right toe
+                           -380,    0 ; %  3) left ankle
+                            380,    0 ; %  4) right ankle
+                           -300,  300 ; %  5) left knee
+                            300,  300 ; %  6) right knee
+                           -180,  630 ; %  7) left hip
+                            180,  630 ; %  8) right hip
+                           -200, 1100 ; %  9) left shoulder
+                            200, 1100 ; % 10) right shoulder
+                           -220,  850 ; % 11) left elbow
+                            220,  850 ; % 12) right elbow
+                           -210,  600 ; % 13) left wrist
+                            210,  600 ; % 14) right wrist
+                              0, 1100 ; % 15) neck base
+                              0, 1300   % 16) head
+                           ];
 
-i_skl = i_skl + 1;
-info.label{i_skl}   = 'B';
-info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
-                       -400,    0 ; %  1) left toe
-                        400,    0 ; %  2) right toe
-                       -380,    0 ; %  3) left ankle
-                        380,    0 ; %  4) right ankle
-                       -300,  300 ; %  5) left knee
-                        300,  300 ; %  6) right knee
-                       -180,  630 ; %  7) left hip
-                        180,  630 ; %  8) right hip
-                       -200, 1100 ; %  9) left shoulder
-                        200, 1100 ; % 10) right shoulder
-                       -400,  870 ; % 11) left elbow
-                        400,  870 ; % 12) right elbow
-                       -370,  620 ; % 13) left wrist
-                        370,  620 ; % 14) right wrist
-                          0, 1100 ; % 15) neck base
-                          0, 1300   % 16) head
-                       ];
+    i_skl = i_skl + 1;
+    info.label{i_skl}   = 'B';
+    info.markers{i_skl} = info.markers{i_skl - 1};
+    info.markers{i_skl}(11:14,:) = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
+                                   -400,  870 ; % 11) left elbow
+                                    400,  870 ; % 12) right elbow
+                                   -370,  620 ; % 13) left wrist
+                                    370,  620 ; % 14) right wrist
+                                   ];
 
-i_skl = i_skl + 1;
-info.label{i_skl}   = 'C';
-info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
-                       -400,    0 ; %  1) left toe
-                        400,    0 ; %  2) right toe
-                       -380,    0 ; %  3) left ankle
-                        380,    0 ; %  4) right ankle
-                       -300,  300 ; %  5) left knee
-                        300,  300 ; %  6) right knee
-                       -180,  630 ; %  7) left hip
-                        180,  630 ; %  8) right hip
-                       -200, 1100 ; %  9) left shoulder
-                        200, 1100 ; % 10) right shoulder
-                       -230, 1350 ; % 11) left elbow
-                        230, 1350 ; % 12) right elbow
-                       -250, 1600 ; % 13) left wrist
-                        250, 1600 ; % 14) right wrist
-                          0, 1100 ; % 15) neck base
-                       -160, 1220   % 16) head
-                       ];
+    % head tilt:
+         d = 80; % <--- desired decrease of head height
+    t_side = -1; % <--- tilt side (negative = left)
+    y_nh_s = info.markers{i_skl}(16,2) - info.markers{i_skl}(15,2); % neck base to head when head is straight
+    y_nh_t = y_nh_s - d; % neck base to head vertical projection when head is tilted
+    x_head_t = t_side * sqrt(y_nh_s^2 - y_nh_t^2); % horizontal projection of head when tilted
+    y_head_t = y_nh_t + info.markers{i_skl}(15,2);
 
-i_skl = i_skl + 1;
-info.label{i_skl}   = 'D';
-info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
-                       -400,    0 ; %  1) left toe
-                        400,    0 ; %  2) right toe
-                       -380,    0 ; %  3) left ankle
-                        380,    0 ; %  4) right ankle
-                       -300,  300 ; %  5) left knee
-                        300,  300 ; %  6) right knee
-                       -180,  630 ; %  7) left hip
-                        180,  630 ; %  8) right hip
-                       -200, 1100 ; %  9) left shoulder
-                        200, 1100 ; % 10) right shoulder
-                       -230, 1350 ; % 11) left elbow
-                        230, 1350 ; % 12) right elbow
-                       -250, 1600 ; % 13) left wrist
-                        250, 1600 ; % 14) right wrist
-                          0, 1100 ; % 15) neck base
-                          0, 1300   % 16) head
-                       ];
+    i_skl = i_skl + 1;
+    info.label{i_skl}   = 'C';
+    info.markers{i_skl} = info.markers{i_skl - 1};
+    info.markers{i_skl}([11:14,16],:) = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
+                                       -230, 1350 ; % 11) left elbow
+                                        230, 1350 ; % 12) right elbow
+                                       -250, 1600 ; % 13) left wrist
+                                        250, 1600 ; % 14) right wrist
+                                   x_head_t, y_head_t ; % 16) head
+                                        ];
+
+    i_skl = i_skl + 1;
+    info.label{i_skl}   = 'D';
+    info.markers{i_skl} = info.markers{i_skl - 1};
+    info.markers{i_skl}([11:14,16],:) = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
+                                       -230, 1350 ; % 11) left elbow
+                                        230, 1350 ; % 12) right elbow
+                                       -250, 1600 ; % 13) left wrist
+                                        250, 1600 ; % 14) right wrist
+                                          0, 1300   % 16) head
+                                        ];
+
+    i_skl = i_skl + 1;
+    info.label{i_skl}   = 'E';
+    info.markers{i_skl} = info.markers{i_skl - 1};
+    info.markers{i_skl}(11:14,:) = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
+                                   -580, 1080 ; % 11) left elbow
+                                    580, 1080 ; % 12) right elbow
+                                  -1010, 1000 ; % 13) left wrist
+                                   1010, 1000 ; % 14) right wrist
+                                   ];
                    
-i_skl = i_skl + 1;
-info.label{i_skl}   = 'E';
-info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
-                       -400,    0 ; %  1) left toe
-                        400,    0 ; %  2) right toe
-                       -380,    0 ; %  3) left ankle
-                        380,    0 ; %  4) right ankle
-                       -300,  300 ; %  5) left knee
-                        300,  300 ; %  6) right knee
-                       -180,  630 ; %  7) left hip
-                        180,  630 ; %  8) right hip
-                       -200, 1100 ; %  9) left shoulder
-                        200, 1100 ; % 10) right shoulder
-                       -580, 1080 ; % 11) left elbow
-                        580, 1080 ; % 12) right elbow
-                      -1010, 1000 ; % 13) left wrist
-                       1010, 1000 ; % 14) right wrist
-                          0, 1100 ; % 15) neck base
-                          0, 1300   % 16) head
-                       ];
-                   
-% i_skl = i_skl + 1;
-% info.label{i_skl}   = 'F';
-% info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
-%                         -30,    0 ; %  1) left toe
-%                         -30,    0 ; %  2) right toe
-%                           0,    0 ; %  3) left ankle
-%                           0,    0 ; %  4) right ankle
-%                           0,  300 ; %  5) left knee
-%                           0,  300 ; %  6) right knee
-%                           0,  630 ; %  7) left hip
-%                           0,  630 ; %  8) right hip
-%                           0, 1100 ; %  9) left shoulder
-%                           0, 1100 ; % 10) right shoulder
-%                           0,  850 ; % 11) left elbow
-%                           0,  850 ; % 12) right elbow
-%                           0,  600 ; % 13) left wrist
-%                           0,  600 ; % 14) right wrist
-%                           0, 1100 ; % 15) neck base
-%                           0, 1300   % 16) head
-%                        ];
-% 
-% i_skl = i_skl + 1;
-% info.label{i_skl}   = 'G';
-% info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
-%                         -30,    0 ; %  1) left toe
-%                         -30,    0 ; %  2) right toe
-%                           0,    0 ; %  3) left ankle
-%                           0,    0 ; %  4) right ankle
-%                           0,  300 ; %  5) left knee
-%                           0,  300 ; %  6) right knee
-%                           0,  630 ; %  7) left hip
-%                           0,  630 ; %  8) right hip
-%                           0, 1100 ; %  9) left shoulder
-%                           0, 1100 ; % 10) right shoulder
-%                           0,  850 ; % 11) left elbow
-%                           0,  850 ; % 12) right elbow
-%                           0,  600 ; % 13) left wrist
-%                           0,  600 ; % 14) right wrist
-%                           0, 1100 ; % 15) neck base
-%                        -160, 1220   % 16) head
-%                        ];
-% 
-% i_skl = i_skl + 1;
-% info.label{i_skl}   = 'H';
-% info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
-%                         -30,    0 ; %  1) left toe
-%                         -30,    0 ; %  2) right toe
-%                           0,    0 ; %  3) left ankle
-%                           0,    0 ; %  4) right ankle
-%                        -204,  220 ; %  5) left knee
-%                        -204,  224 ; %  6) right knee
-%                           0,  550 ; %  7) left hip
-%                           0,  550 ; %  8) right hip
-%                           0, 1020 ; %  9) left shoulder
-%                           0, 1020 ; % 10) right shoulder
-%                           0,  770 ; % 11) left elbow
-%                           0,  770 ; % 12) right elbow
-%                           0,  520 ; % 13) left wrist
-%                           0,  520 ; % 14) right wrist
-%                           0, 1020 ; % 15) neck base
-%                           0, 1220   % 16) head
-%                        ];
+elseif select_dataset == 2
+    
+    i_skl = i_skl + 1;
+    info.label{i_skl}   = 'F';
+    info.markers{i_skl} = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
+                            -30,    0 ; %  1) left toe
+                            -30,    0 ; %  2) right toe
+                              0,    0 ; %  3) left ankle
+                              0,    0 ; %  4) right ankle
+                              0,  300 ; %  5) left knee
+                              0,  300 ; %  6) right knee
+                              0,  630 ; %  7) left hip
+                              0,  630 ; %  8) right hip
+                              0, 1100 ; %  9) left shoulder
+                              0, 1100 ; % 10) right shoulder
+                              0,  850 ; % 11) left elbow
+                              0,  850 ; % 12) right elbow
+                              0,  600 ; % 13) left wrist
+                              0,  600 ; % 14) right wrist
+                              0, 1100 ; % 15) neck base
+                              0, 1300   % 16) head
+                           ];
 
+    % head tilt:
+         d = 80; % <--- desired decrease of head height
+    t_side = -1; % <--- tilt side (negative = left)
+    y_nh_s = info.markers{i_skl}(16,2) - info.markers{i_skl}(15,2); % neck base to head when head is straight
+    y_nh_t = y_nh_s - d; % neck base to head vertical projection when head is tilted
+    x_head_t = t_side * sqrt(y_nh_s^2 - y_nh_t^2); % horizontal projection of head when tilted
+    y_head_t = y_nh_t + info.markers{i_skl}(15,2);
+
+    i_skl = i_skl + 1;
+    info.label{i_skl}   = 'G';
+    info.markers{i_skl} = info.markers{i_skl - 1};
+    info.markers{i_skl}(16,:) = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)                            
+                                 x_head_t, y_head_t ; % 16) head
+                                ];
+
+    % knee bend to the same side as head tilt:                   
+    y_hk_s = info.markers{i_skl}(5,2); % heel to knee when leg is straight
+    y_kh_s = info.markers{i_skl}(7,2) - y_hk_s; % knee to hip when leg is straight
+    y_hb = y_hk_s + y_kh_s - d; % knee to hip vertical projection when leg is bent
+    sp = (y_hk_s + y_kh_s + y_hb) / 2; % semiperimeter (Heron's formula)
+    x_knee_b = t_side * 2 * sqrt( sp * (sp - y_hb) * (sp - y_hk_s) * (sp - y_kh_s)) / y_hb; % % horizontal projection of knee when leg is bent
+    y_knee_b  = sqrt(y_hk_s^2 - x_knee_b^2); % height of knee when leg is bent
+
+    i_skl = i_skl + 1;
+    info.label{i_skl}   = 'H';
+    info.markers{i_skl} = info.markers{i_skl - 1};
+    info.markers{i_skl}([5:6,16],:) = [... % <--- rows: markers; columns: dimensions (horizontal,vertical)
+                                       x_knee_b,  y_knee_b ; %  5) left knee
+                                       x_knee_b,  y_knee_b ; %  6) right knee
+                                              0, 1300        % 16) head
+                                       ];
+    info.markers{i_skl}(7:16,2) = info.markers{i_skl}(7:16,2) - d; 
+end
 
 n_skl = length(info.markers);
 
@@ -246,25 +211,25 @@ info.conn{i_skl} = ... % <-- markers' connections to make skeletons ( row 1 = st
 vis_param.limits     = [-1010, 1010, 0, 1600];
 
 vis_param.figsize{1} = [1480,260];     % <--- figure size for skeletons
-% vis_param.figsize{1} = [888,260];     % <--- figure size for skeletons
 vis_param.figsize{2} = [700,260];      % <--- figure size for bar chart
 vis_param.msize      = 8;              % <--- marker size
 vis_param.cwidth     = 2;              % <--- connector width
 vis_param.skcolor    = 'wkkkk';        % <--- skeleton colours: [background marker connection trace markernumber] ('kwwww') or RGB triplet (5x3)
-
 vis_param.centcolor  = [1,1,1]*0.5;    % <--- centroid colour as RGB triplet (empty = don't display)
-% vis_param.centcolor  = [];
-
 vis_param.brcolor    = [1,1,1]*0.7;    % <--- bounding rectangle colour as RGB triplet (empty = don't display)
-% vis_param.brcolor    = [];
 vis_param.brwidth    = 2;              % <--- bounding rectangle line width
-
 vis_param.chcolor    = [1,1,1]*0.5;    % <--- convex hull colour as RGB triplet (empty = don't display)
-% vis_param.chcolor    = [];
 vis_param.chwidth    = 1;              % <--- convex hull line width
-
 vis_param.plgrid     = [1,n_skl];      % <--- plot grid: rows, columns 
 vis_param.fontsize   = 20;             % <--- font size
+
+if select_dataset == 2
+    
+    vis_param.figsize{1} = [888,260];
+    vis_param.centcolor  = [];
+    vis_param.brcolor    = [];
+    vis_param.chcolor    = [];
+end
 
 % ------------------------------------------------------------------------------
 if ~exist('paths_added','var')
