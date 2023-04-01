@@ -12,6 +12,47 @@ All software of my authorship in this page is published under the <a href="https
 
 <br>
 <li>
+<ul>
+
+<li>
+<ul>
+
+<li>
+![FULL ALL GAPS](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_allgaps.gif) *FULL ALL GAPS*
+</li>
+<li>
+![FULL GAPS FILLED](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_gapsfilled.gif) *FULL GAPS FILLED*
+</li>
+<li>
+![GAPS](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/gaps_P07_s4.gif) *GAPS*
+</li>
+![mcfillgaps](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcfillgaps_P07_s4.gif) *mcfillgaps*
+</li>
+</li>
+![mcrecovery](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcrecovery_P07_s4.gif) *mcrecovery*
+</li>
+
+</li>
+
+<li>
+<ul>
+</li>
+Mendoza Garay, J. I., Burger, B., & Luck, G. (2022). Exploring relations between Big Five personality traits and musical emotions embodied in spontaneous dance. Psychology of Music, OnlineFirst. https://doi.org/10.1177/03057356221135355
+</li>
+<li>
+https://journals.sagepub.com/doi/full/10.1177/03057356221135355
+</li>
+<li>
+http://urn.fi/URN:NBN:fi:jyu-202211295415
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+<br>
+<li>
 <a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/mcspread.m">mcspread</a> 
  Computes "a movement feature representing bodily extension and contraction". See <a href="https://psychologyandmusicconference.files.wordpress.com/2022/10/ab_pam-ie-belgrade-2022.pdf?force_download=true">Touizrar, Mendoza & Thompson (2022)</a> in <a href="https://psychologyandmusicconference.wordpress.com/proceedings/">Second International Conference Psychology and Music, Belgrade, Serbia</a>. 
 
