@@ -10,37 +10,36 @@ All software of my authorship in this page is published under the <a href="https
 
 <ul>
 
-<br>
+<br> 
 <li>
+
+mcrecovery vs. mcfillgaps:
 <ul>
 
 <li>
 <ul>
 
-<! --- 
-
 <li>
-![FULL ALL GAPS](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_allgaps.gif) *FULL ALL GAPS*
+<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_allgaps.gif" width="133" height="100"/>
 </li>
 <li>
-![FULL GAPS FILLED](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_gapsfilled.gif) *FULL GAPS FILLED*
+<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_gapsfilled.gif" width="100" height="75"/>
 </li>
 <li>
-![GAPS](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/gaps_P07_s4.gif) *GAPS*
+<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/gaps_P07_s4.gif" width="100" height="75"/>
 </li>
-![mcfillgaps](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcfillgaps_P07_s4.gif) *mcfillgaps*
+<li>
+<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcfillgaps_P07_s4.gif" width="100" height="75"/>
 </li>
+<li>
+<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcrecovery_P07_s4.gif" width="100" height="75"/>
 </li>
-![mcrecovery](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcrecovery_P07_s4.gif) *mcrecovery*
-</li>
-
--->
-
 </li>
 
 <li>
 <ul>
-</li>
+More information:
+<li>
 Mendoza Garay, J. I., Burger, B., & Luck, G. (2022). Exploring relations between Big Five personality traits and musical emotions embodied in spontaneous dance. Psychology of Music, OnlineFirst. https://doi.org/10.1177/03057356221135355
 </li>
 <li>
