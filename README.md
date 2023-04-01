@@ -7,43 +7,6 @@ It might also work in <a href="https://www.gnu.org/software/octave/">Octave</a>.
 
 <ul>
 
-<br> 
-<li>
-
-mcrecovery vs. mcfillgaps:
-
-
-
-
-<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_allgaps.gif" width="133" height="100"/>
-
-<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_gapsfilled.gif" width="133" height="100"/>
-
-
-<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/gaps_P07_s4.gif" width="133" height="100"/>
-
-<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcfillgaps_P07_s4.gif" width="133" height="100"/>
-
-<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcrecovery_P07_s4.gif" width="133" height="100"/>
-
-
-
-
-<ul>
-
-<li>
-Mendoza Garay, J. I., Burger, B., & Luck, G. (2022). Exploring relations between Big Five personality traits and musical emotions embodied in spontaneous dance. Psychology of Music, OnlineFirst. https://doi.org/10.1177/03057356221135355
-</li>
-<li>
-https://journals.sagepub.com/doi/full/10.1177/03057356221135355
-</li>
-<li>
-http://urn.fi/URN:NBN:fi:jyu-202211295415
-</li>
-</ul>
-
-</li>
-
 <br>
 <li>
 <a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/mcspread.m">mcspread</a> 
