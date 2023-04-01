@@ -3,9 +3,6 @@
 Miscellaneous <a href="http://mathworks.com">Matlab</a> code.
 It might also work in <a href="https://www.gnu.org/software/octave/">Octave</a>.
 
-## License
-All software of my authorship in this page is published under the <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GNU General Purpose License version 2.</a>
-
 ## Description 
 
 <ul>
@@ -14,31 +11,26 @@ All software of my authorship in this page is published under the <a href="https
 <li>
 
 mcrecovery vs. mcfillgaps:
-<ul>
 
-<li>
-<ul>
 
-<li>
+
+
 <img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_allgaps.gif" width="133" height="100"/>
-</li>
-<li>
-<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_gapsfilled.gif" width="100" height="75"/>
-</li>
-<li>
-<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/gaps_P07_s4.gif" width="100" height="75"/>
-</li>
-<li>
-<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcfillgaps_P07_s4.gif" width="100" height="75"/>
-</li>
-<li>
-<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcrecovery_P07_s4.gif" width="100" height="75"/>
-</li>
-</li>
 
-<li>
+<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_gapsfilled.gif" width="133" height="100"/>
+
+
+<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/gaps_P07_s4.gif" width="133" height="100"/>
+
+<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcfillgaps_P07_s4.gif" width="133" height="100"/>
+
+<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcrecovery_P07_s4.gif" width="133" height="100"/>
+
+
+
+
 <ul>
-More information:
+
 <li>
 Mendoza Garay, J. I., Burger, B., & Luck, G. (2022). Exploring relations between Big Five personality traits and musical emotions embodied in spontaneous dance. Psychology of Music, OnlineFirst. https://doi.org/10.1177/03057356221135355
 </li>
@@ -49,9 +41,7 @@ https://journals.sagepub.com/doi/full/10.1177/03057356221135355
 http://urn.fi/URN:NBN:fi:jyu-202211295415
 </li>
 </ul>
-</li>
 
-</ul>
 </li>
 
 <br>
@@ -126,4 +116,8 @@ Produces irrepeteable numbers based in system clock, with minimum interval of on
 Reads files produced by <a href="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/blob/main/Audiofile_Rating_v0.1.2.pd">Audiofile Rating</a> into a Matlab matrix.</li>
 
 </ul>
+
+## License
+All software of my authorship in this page is published under the <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html">GNU General Purpose License version 2.</a>
+
 
