@@ -17,6 +17,8 @@ All software of my authorship in this page is published under the <a href="https
 <li>
 <ul>
 
+<! --- 
+
 <li>
 ![FULL ALL GAPS](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/Full_P07_s4_allgaps.gif) *FULL ALL GAPS*
 </li>
@@ -31,6 +33,8 @@ All software of my authorship in this page is published under the <a href="https
 </li>
 ![mcrecovery](https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/mcrecovery_vs_mcfillgaps/mcrecovery_P07_s4.gif) *mcrecovery*
 </li>
+
+-->
 
 </li>
 
