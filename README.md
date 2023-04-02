@@ -6,6 +6,8 @@ It might also work in <a href="https://www.gnu.org/software/octave/">Octave</a>.
 ## Description 
 
 <ul>
+<img src="https://gitlab.jyu.fi/juigmend/matlab-miscellaneous/-/raw/main/Fig_1_sequence.gif" width="215" height="267"/>
+
 
 <br>
 <li>
